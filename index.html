@@ -14,7 +14,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <img src="img/g.png" style="display: inline-block;float: left;margin-right: 10px">
+            <img src="img/g.png" style="display: inline-block;float: left;margin-right: 10px;height:45px;">
             <a class="navbar-brand" href="#"> god预言</a>
         </div>
     </div>
@@ -47,17 +47,20 @@
             <div class="content">
                 <div class="name">
                     <span class="nc" v-html="getName(s.value)"></span>
-                    <span class="sc" v-html="getAddr(s.value)"></span>
+                    <span class="sc" v-html="s.key"></span>
                 </div>
                 <div class="text">
-                    预言：{{getCont(s.value)}}
+                    对<span style="text-decoration: underline" v-html="getType(s.value)"></span>预言：<span v-html="getCont(s.value)"></span>
                 </div>
             </div>
         </div>
     </div>
     <div class="inp">
         <div class="time">
-            <img src="img/f.png" alt="">&nbsp;我要对：
+
+        </div>
+        <div class="time">
+            <img src="img/f.png" alt="">&nbsp;<input type="text" id="name" placeholder="请输入你的昵称">&nbsp;&nbsp;对：
             <select name="" id="schoolType">
                 <option value="0">请选择</option>
                 <option value="1">人类</option>
@@ -66,7 +69,7 @@
             </select>
            &nbsp;
             预言
-            <!-- &nbsp;<input type="text" id="name" placeholder="请输入你的昵称">-->
+
         </div>
         <div class="content">
             <span style="padding-top: 12px"></span>
@@ -100,15 +103,15 @@
         $("#noExtension").show();
     }
 
-    var dappAddress = "n1vdVA9bhBrRHDZ8pmBGk57Mk2suiVGQKEY";
+    var dappAddress = "n1xyAkPjMMQaPYZwuksZYoRXr5a2kS4ayq6";
     var initKey = '';
     setInterval(function () {
-        getWish(0);
+        getPredict(0);
     }, 10000);
-    getWish(0);
+    getPredict(0);
 
     // 初始化
-    function getWish(page) {
+    function getPredict(page) {
         var to = dappAddress;
         var value = "0";
         var callFunction = "forEach";
@@ -137,19 +140,17 @@
             layer.msg('昵称不能为空');
             return;
         } else if (schoolType == '0') {
-            layer.msg('时代不能为空');
+            layer.msg('预言对象不能为空');
             return;
         } else if (content == '') {
-            layer.msg('内容不能为空');
+            layer.msg('预言内容不能为空');
             return;
         }
 
-        initKey = 'through:' + new Date().getTime() + RndNum(3);
         var to = dappAddress;
         var value = "0";
         var callFunction = "set"
         var callArgs = [];
-        callArgs.push(initKey);
         callArgs.push(name + "|-|" + schoolType + '|-|' + content);
         nebPay.call(to, value, callFunction, JSON.stringify(callArgs), {
             listener: cbPush
@@ -159,14 +160,6 @@
     function cbPush(resp) {
         console.log("response of push: " + resp);
         $("#word").val('')
-    }
-
-    //产生随机数函数
-    function RndNum(n) {
-        var rnd = "";
-        for (var i = 0; i < n; i++)
-            rnd += Math.floor(Math.random() * 10);
-        return rnd;
     }
 
     var app = new Vue({
@@ -183,15 +176,15 @@
                 }
 
             },
-            getAddr: function (text) {
+            getType: function (text) {
                 if (text) {
                     var sv = text.split('|-|')[1];
                     if (sv == 1) {
-                        return '初中'
+                        return '人类'
                     } else if (sv == 2) {
-                        return '高中'
+                        return '地球'
                     } else if (sv == 3) {
-                        return '大学'
+                        return '宇宙'
                     }
                 } else {
                     return ' ';
