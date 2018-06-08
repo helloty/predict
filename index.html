@@ -40,14 +40,14 @@
             <img src="img/icon5.png" alt="">
             平行空间
         </div>-->
-        <div class="item" v-for="(s,index) in list">
+        <div class="item" v-for="(s,index) in list" >
             <div class="icon">
                 <img src="img/a.png">
             </div>
             <div class="content">
                 <div class="name">
                     <span class="nc" v-html="getName(s.value)"></span>
-                    <span class="sc" v-html="s.key"></span>
+                    <span class="sc" v-html="getKey(s.key)"></span>
                 </div>
                 <div class="text">
                     对<span style="text-decoration: underline" v-html="getType(s.value)"></span>预言：<span v-html="getCont(s.value)"></span>
@@ -103,7 +103,7 @@
         $("#noExtension").show();
     }
 
-    var dappAddress = "n1xyAkPjMMQaPYZwuksZYoRXr5a2kS4ayq6";
+    var dappAddress = "n1n7zcJcxTACNebXtivMZMRDPiytiFuRAXj";
     var initKey = '';
     setInterval(function () {
         getPredict(0);
@@ -147,10 +147,12 @@
             return;
         }
 
+        initKey = RndNum(3);
         var to = dappAddress;
         var value = "0";
         var callFunction = "set"
         var callArgs = [];
+        callArgs.push(initKey);
         callArgs.push(name + "|-|" + schoolType + '|-|' + content);
         nebPay.call(to, value, callFunction, JSON.stringify(callArgs), {
             listener: cbPush
@@ -160,6 +162,14 @@
     function cbPush(resp) {
         console.log("response of push: " + resp);
         $("#word").val('')
+    }
+
+    //产生随机数函数
+    function RndNum(n) {
+        var rnd = "";
+        for (var i = 0; i < n; i++)
+            rnd += Math.floor(Math.random() * 10);
+        return rnd;
     }
 
     var app = new Vue({
@@ -193,6 +203,13 @@
             getCont: function (text) {
                 if (text) {
                     return text.split('|-|')[2];
+                } else {
+                    return ' ';
+                }
+            },
+            getKey:function(text){
+                if (text) {
+                    return text.substring(0,text.length-3);
                 } else {
                     return ' ';
                 }

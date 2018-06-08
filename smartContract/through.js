@@ -1,28 +1,27 @@
 "use strict";
 
-var Through = function () {
+var Predict = function () {
     LocalContractStorage.defineMapProperty(this, "arrayMap");
     LocalContractStorage.defineMapProperty(this, "dataMap");
     LocalContractStorage.defineProperty(this, "size");
 };
 
-Through.prototype = {
+Predict.prototype = {
     init: function () {
         this.size = 0;
     },
 
-    set: function (value) {
+    set: function (key,value) {
         var from = Blockchain.transaction.from;
         var index = this.size;
-        this.arrayMap.set(index, from);
-        this.dataMap.set(from, value);
+        this.arrayMap.set(index, from+key);
+        this.dataMap.set(from+key, value);
         this.size += 1;
     },
 
     get: function (key) {
         return this.dataMap.get(key);
     },
-
     len: function () {
         return this.size;
     },
@@ -56,4 +55,4 @@ Through.prototype = {
     }
 };
 
-module.exports = Through;
+module.exports = Predict;
