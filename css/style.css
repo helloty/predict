@@ -1,6 +1,6 @@
 .navbar-inverse {
-    background: #00dfd5;
-    border-color: #00dfd5;
+    background: #795548;
+    border-color: #795548;
 }
 
 .navbar-inverse .navbar-brand {
@@ -151,12 +151,12 @@ padding-top: 10px;
     height: 35px;
     color: #333;
     line-height: 35px;
-    border: 1px solid #00dfd5;
+    border: 1px solid #795548;
     border-radius: 4px;
     text-align: center;
     margin-top: 18px;
     cursor: pointer;
-    background: #00dfd5;
+    background: #795548;
     color: #fff;
 }
 
