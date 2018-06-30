@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>来自玛雅</title>
+    <title>首页</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -15,7 +15,7 @@
     <div class="container">
         <div class="navbar-header">
             <img src="img/g.png" style="display: inline-block;float: left;margin-right: 10px;height:45px;">
-            <a class="navbar-brand" href="#">来自玛雅</a>
+            <a class="navbar-brand" href="#">玛雅遗迹</a>
         </div>
     </div>
 </nav>
@@ -23,13 +23,15 @@
 <div class="container main">
     <div class="title">
         <img src="img/d.png" alt="">
-        许多古代文明早已不复存在，但一些预言却流传至今，而且逐一应验......
+        <div id="divTyping" style="margin-bottom: 15px;display: inline-block"></div>
+        <div id="divTyping2" style="padding-left: 600px"></div>
+
     </div>
-    <div class="title">
+    <!--<div class="title">
 
         <img src="img/c.png" style="padding-left: 450px">
         是洞彻天机、 经天纬地？还是......
-    </div>
+    </div>-->
     <div class="tip">
         基于新一代区块链公链星云链，预言永久保存，不可篡改，<span style="font-weight: bold;">写下你对人类/地球/宇宙的预言</span>？让时间去证明！
     </div>
@@ -216,6 +218,38 @@
             }
         }
     })
+
+
+    var str = '许多古代文明早已不复存在，但一些预言却流传至今，而且逐一应验......';
+    var i = 0;
+
+    function typing() {
+        var divTyping = document.getElementById('divTyping');
+        if (i <= str.length) {
+            divTyping.innerHTML = str.slice(0, i++) + '|';
+            setTimeout('typing()', 200);//递归调用
+        }
+        else {
+            divTyping.innerHTML = str;//结束打字,移除 _ 光标
+            typing2();
+        }
+    }
+
+    typing();
+
+    var str2 = '记下你的预言，让时间来证明';
+    var i2 = 0;
+
+    function typing2() {
+        var divTyping2 = document.getElementById('divTyping2');
+        if (i2 <= str2.length) {
+            divTyping2.innerHTML = str2.slice(0, i2++) + '|';
+            setTimeout('typing()', 200);//递归调用
+        }
+        else {
+            divTyping2.innerHTML = str2;//结束打字,移除 _ 光标
+        }
+    }
 
 </script>
 
